@@ -1,0 +1,33 @@
+﻿@model IEnumerable<K22CNTT2_TRANVANMINH_2210900112.Models.TheLoai>
+
+@{
+    ViewBag.Title = "Danh Sách Thể Loại Sách";
+}
+
+<h2>Danh Sách Thể Loại Sách</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tên Thể Loại</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var theLoai in Model)
+        {
+            <tr>
+                <td>@theLoai.TenTheLoai</td>
+                <td>
+                    @Html.ActionLink("Xem sách", "DanhSachTheoTheLoai", "Sach", new { theLoaiId = theLoai.MaTheLoai }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .table {
+        margin-top: 20px;
+    }
+</style>

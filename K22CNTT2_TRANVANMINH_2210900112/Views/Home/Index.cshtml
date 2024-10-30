@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<div class="hero-section">
+    <h1>Chào mừng đến với Trang Bán Sách Mina</h1>
+    <p>Khám phá các tựa sách nổi bật và khuyến mãi hấp dẫn!</p>
+    <a href="@Url.Action("Index", "TheLoai")" class="btn btn-primary">Xem tất cả loại sách</a>
+
+
+</div>
+
+
+<h2>Sách Nổi Bật</h2>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4; /* Màu nền nhẹ nhàng */
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-section {
+        text-align: center;
+        padding: 50px;
+        background: linear-gradient(to right, #007bff, #6c757d); /* Gradient cho phần hero */
+        color: white; /* Chữ màu trắng để nổi bật trên nền */
+    }
+
+        .hero-section h1 {
+            font-size: 3em; /* Kích thước chữ lớn hơn */
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Đổ bóng cho chữ */
+        }
+
+        .hero-section p {
+            font-size: 1.5em; /* Kích thước chữ lớn hơn cho mô tả */
+            margin-bottom: 20px;
+            color: #f8f9fa; /* Màu sắc nhẹ nhàng cho văn bản */
+        }
+
+        .hero-section .btn-primary {
+            background-color: #28a745; /* Màu xanh lá cho nút */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng khi hover */
+        }
+
+            .hero-section .btn-primary:hover {
+                background-color: #218838; /* Màu tối hơn khi hover */
+                transform: scale(1.05); /* Phóng to khi hover */
+            }
+
+    h2 {
+        text-align: center;
+        margin: 40px 0 20px; /* Căn giữa và tạo khoảng cách */
+        font-size: 2em; /* Kích thước chữ cho tiêu đề */
+    }
+
+    .featured-books {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Căn giữa các mục sách */
+        gap: 20px; /* Khoảng cách giữa các mục sách */
+        padding: 20px;
+    }
+
+    .book-item {
+        width: 220px; /* Thay đổi kích thước cho sách */
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 10px; /* Bo tròn các góc */
+        background-color: white; /* Màu nền cho mục sách */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho mục sách */
+        transition: transform 0.3s; /* Hiệu ứng phóng to khi hover */
+    }
+
+        .book-item:hover {
+            transform: translateY(-5px); /* Dịch chuyển nhẹ khi hover */
+        }
+
+        .book-item h3 {
+            margin: 10px 0;
+            font-size: 1.2em; /* Kích thước chữ tiêu đề sách */
+        }
+
+        .book-item img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px; /* Bo tròn hình ảnh */
+        }
+
+    .btn-secondary {
+        background-color: #6c757d; /* Màu sắc cho nút "Xem chi tiết" */
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s; /* Hiệu ứng khi hover */
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Màu tối hơn khi hover */
+        }
+</style>
+
+<div class="featured-books">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var sach in Model)
+        {
+            <div class="book-item">
+                <h3>@sach.TieuDe</h3>
+                <p><strong>Tác giả:</strong> @sach.TacGia</p>
+                <p><strong>Giá:</strong> @sach.Gia.ToString("C")</p>
+                @if (!string.IsNullOrEmpty(sach.HinhAnh))
+                {
+                    <img src="@Url.Content("~/" + sach.HinhAnh)" alt="@sach.TieuDe" />
+                }
+                <p><a href="@Url.Action("ChiTiet", "Sach", new { id = sach.MaSach })" class="btn btn-secondary">Xem chi tiết</a></p>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Hiện không có sách nổi bật nào.</p>
+    }
+</div>
+
